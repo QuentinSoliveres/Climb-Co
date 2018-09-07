@@ -1,0 +1,25 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <title>index.js</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+	<body>
+
+		<div id="app-7">
+		  <ol>
+		    <climbing-item
+		      v-for="item in ropeList"
+		      v-bind:item="item">
+		    </climbing-item>
+		    <climbing-item
+		      v-for="item in shoesList"
+		      v-bind:item="item">
+		    </climbing-item>
+		  </ol>
+		</div>
+
+		<script src="index.js"></script>
+	</body>
+</html>

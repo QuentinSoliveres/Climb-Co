@@ -1,0 +1,24 @@
+	<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <title>index.js</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+	<body>
+			<ul id="v-for-object" class="demo">
+
+
+			magasin:
+			  <li v-for="value in items">
+			   nom:  {{ value.nom }}   prix: {{ value.prix }} <button v-on:click="additem(value)">ajout au panier</button>
+			  </li>
+
+			  <br>
+			  panier:
+			  <li v-for="value in panier">
+			   nom:  {{ value.nom }}   prix: {{value.prix }}
+			  </li>
+			</ul>
+			<script src="index.js"></script>
+	</body>
+</html>
