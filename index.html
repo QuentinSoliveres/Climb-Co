@@ -1,25 +1,78 @@
 <!doctype html>
 <head>
-  <meta charset="utf-8">
-  <title>index.js</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<meta charset="utf-8">
+	<title>index.js</title>
+	<link rel="stylesheet" href="style.css">
 </head>
 	<body>
+		<main id="app">
 
-		<div id="app-7">
-		  <ol>
-		    <climbing-item
-		      v-for="item in ropeList"
-		      v-bind:item="item">
-		    </climbing-item>
-		    <climbing-item
-		      v-for="item in shoesList"
-		      v-bind:item="item">
-		    </climbing-item>
-		  </ol>
-		</div>
+			<header>
+				<nav>
+					<ul class>
+						<li class="float_left_dropdown"><a  v-on:click="currentPage = 'home'" class = "dropbtn" >Home</a>
+							<div class="dropdown-content">					      
+								<a v-on:click="currentPage = 'history'">Our history</a>
+								<a v-on:click="currentPage = 'mission'">Our mission</a>
+						    </div>
+						</li>
+						<li v-on:click="currentPage = 'shop'" class="float_left_dropdown"><a class = "dropbtn">Article</a>
+							<div class="dropdown-content">	      
+								<a>Helmets</a>
+								<a>Harnesses</a>
+								<a>Descenders</a>
+								<a>Ropes</a>
+								<a>Carabiners</a>
+						    </div>
+						</li>
+						<li class="float_right"><a href = "Cart.html"> Cart </a></li>
+						<li class="float_right"	><a href = "Sign_in.html">Sign in</a></li>
+					</ul>
+				</nav>
+			</header>
+			<div id=holder>
 
+				<section v-if="currentPage === 'home'" id="home">
+					<h1>this is the home page</h1>
+					<p>description of or page</p> 
+				</section>
+
+				<section v-if="currentPage === 'history'" id="history">
+					<h1>this is the history page</h1>
+					<p>description of the page</p> 
+				</section>
+
+				<section v-if="currentPage === 'mission'" id="mission">
+					<h1>this is the mission page</h1>
+					<p>description of or page</p> 
+				</section>
+
+				<section v-if="currentPage === 'shop'" id="shop">
+					<h1>this is the shop page</h1>
+					<p>description of or page</p> 
+				</section>
+
+				<section v-if="currentPage === 'cart'" id="cart">
+					<h1>this is the cart page</h1>
+					<p>description of or page</p> 
+				</section>
+
+				<section v-if="currentPage === 'sign_in'" id="sign_in">
+					<h1>this is the sign in page</h1>
+					<p>description of or page</p> 
+				</section>
+
+			</div>
+			<footer>
+				<ul>
+					<li><a href = "contact_us.html">Contact us</a></li>
+					<li><a href = "about.html">About us</a></li>
+					<li><a href = "social_network.html">Social network</a></li>
+				</ul>
+			</footer>
+
+		</main>
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 		<script src="index.js"></script>
 	</body>
 </html>
