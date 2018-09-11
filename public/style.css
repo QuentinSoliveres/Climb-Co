@@ -1,0 +1,157 @@
+header nav ul{
+	list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+header nav .float_left_dropdown {
+	float: left; 
+}
+header nav  .float_right{
+	float: right; 
+}
+header nav li a {
+	display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+header nav li.float_left_dropdown {
+    display: inline-block;
+}
+
+header nav li a:hover, .float_left_dropdown:hover .dropbtn {
+    background-color: #006b00;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #006b00;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.float_left_dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.float_left_dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+
+.dropdown-content a:hover {background-color: #034b03}
+
+header nav li {
+    border-right: 1px solid #bbb;
+}
+
+footer{
+	display: flex;
+	background-color: #333;
+	height: 100px;
+	justify-content: center;
+    margin-top: 20px;
+}
+footer ul {
+	list-style-type: none;
+}
+footer li a {
+    color: white;
+    text-align: center;
+    text-decoration: none;
+}
+footer li{
+	padding-top: 3px;
+}
+
+body{
+	display: flex;
+	flex-direction: column;
+	min-height: 600px;
+}
+
+#holder{
+	flex-grow: 1;
+}
+.logo{
+	display:inline-block;
+    text-align: center;
+	font-size: 40px;
+	margin-left: 30%;
+}
+
+.itemContainer{
+    display: flex;
+    border: 1px solid black;
+    flex-wrap: wrap;
+}
+.itemInfoColumn1{
+    display: flex;
+    flex-direction: column;
+    padding-left: 40px;
+    min-width: 120px;
+}
+.itemInfoColumn2{
+    display: flex;
+    flex-direction: column;
+    padding-left: 40px;
+    justify-content: space-between;
+    padding-bottom: 50px;
+}
+.productDesc{
+    display: flex;
+    width: 400px;
+}
+.addTocartBtn{
+    width: 100px;
+    align-self: flex-end;
+    margin-right: 20px;
+}
+.storeContainer{
+    display: flex;
+}
+.storeContainer nav {
+    margin-left: 20px;
+    margin-right: 10%;
+    margin-top: 100px;
+}
+
+.storeContainer nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 200px;
+    background-color: #333;
+    border: 1px solid black;
+}
+.storeContainer nav a {
+    display: block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+}
+.storeContainer nav li {
+    text-align: center;
+    border-bottom: 1px solid #555;
+}
+.storeContainer nav li:last-child {
+    border-bottom: none;
+}
+
+.storeContainer nav li a:hover {
+    background-color: green;
+    color: white;
+}
+#shop{
+}
