@@ -55,8 +55,20 @@
 				</shop>
 
 				<section v-if="currentPage === 'cart'" id="cart">
-					<h1>this is the cart page</h1>
-					<p>description of or page</p> 
+					 <h1>Cart</h1>  
+				  	     <div class="itemContainer" v-for="value in cart">
+				  	      <img v-bind:src="value.image" width="300" height="300" >
+				  	      <div class="itemInfoColumn1">
+					  	      <h3> {{ value.title }} </h3> 
+					  	      <h4> {{ value.brand }} </h4> 
+					  	      <p class="price"> price: {{ value.price }} </p>
+				  	      </div> 
+				  	      <div class="itemInfoColumn2">
+				  	      	<p class="productDesc" > {{ value.description }} </p>
+				  	      	<p class="quantity"> quantity: {{ value.quantity }} </p>
+						  	<button v-on:click="" class="addTocartBtn" type="button">remove</button>
+						  </div>
+		  	     </div> 
 				</section>
 
 				<section v-if="currentPage === 'sign_in'" id="sign_in">

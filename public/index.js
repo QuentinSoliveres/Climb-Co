@@ -16,7 +16,8 @@ var app = new Vue({
     harnessesList: [],
     descendersList: [],
     carabinersList: [],
-    helmetsList: []
+    helmetsList: [],
+    cart: []
   },
   created () {
    
@@ -76,17 +77,35 @@ var app = new Vue({
         password: this.password,
         username: this.username
       })
-      .then(function (response){
+      .then(response =>{
           if (response.status === 200){
           this.logged=true,
-          this.message=this.password,
-          this.currentPage= 'home'
+          this.message=this.username,
+          this.currentPage= 'home',
+          this.cart.push(response.data)
+          console.log(this.cart)
         }
       }) 
       .catch(error => {
         console.log(error.response)
       })
-    }
+    },
+    addToCart: function(item){
+      if(this.logged === true){
+       this.cart.push(item)
+       console.log(this.cart)
+      }
+      else {
+        alert('Please loggin to use this function')
+        console.log('on passe')
+      }   
+    },
+    test: function(){
+      this.myList.push({
+          name: "test"
+
+        })
+    },
   }
 })
 
@@ -121,11 +140,17 @@ var app = new Vue({
 				  	      </div> 
 				  	      <div class="itemInfoColumn2">
 				  	      	<p class="productDesc" > {{ value.description }} </p>
-						  	<button class="addTocartBtn" type="button">Add To Cart</button>
+						  	<button v-on:click="addToCart(value)" class="addTocartBtn" type="button">Add To Cart</button>
 						  </div>
 		  	     </div> 
 		  	    </section>
 		  	    </div>
-		`
+		`,
+    methods: {
+      addToCart: function(value){
+        this.$parent.addToCart(value);
+         
+      }
+    }
   })
 
