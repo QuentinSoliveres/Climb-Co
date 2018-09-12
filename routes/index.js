@@ -43,11 +43,25 @@ const helmetsList = [
       { id: 3, title: 'Evolv rope' }
     ]
 const userList = [
-	  { id: 0, username: 'admin', password: 'admin', cart: { id: 1, title: 'Boostic', brand: 'Scarpa',  price: 115}},
-      { id: 1, username: 'user', password: 'user' , cart: { id: 1, title: 'Boostic', brand: 'Scarpa',  price: 115}},
-      { id: 2, username: 'random', password: '123',  cart: { id: 1, title: 'Boostic', brand: 'Scarpa',  price: 115}} ,
-      { id: 3, username: 'test', password: 'rate',  cart: { id: 1, title: 'Boostic', brand: 'Scarpa',  price: 115}}
+	  { id: 0, username: 'admin', password: 'admin', cart: [{ id: 1, title: 'Boostic', brand: 'Scarpa',  price: 115}]},
+      { id: 1, username: 'user', password: 'user' , cart: [{ id: 1, title: 'Boostic', brand: 'Scarpa',  price: 115}]},
+      { id: 2, username: 'random', password: '123',  cart: [{ id: 1, title: 'Boostic', brand: 'Scarpa',  price: 115}]} ,
+      { id: 3, username: 'test', password: 'rate',  cart: [{ id: 1, title: 'Boostic', brand: 'Scarpa',  price: 115}]}
 ]
+
+function getId(arr, prop) {
+    var max = 0;
+    console.log(arr)
+    console.log(prop)
+    for (var i=0 ; i<arr.length ; i++) {
+    	console.log(arr[i][prop])
+        if (parseInt(arr[i][prop]) > parseInt(max)){
+            max = arr[i][prop];
+        }
+    }
+    return max+1;
+}
+
 
 router.get('/shoesList', (req, res) => {
   res.json(shoesList)
@@ -77,14 +91,15 @@ router.post('/connect', (req, res) => {
   const username = req.body.username
   const password = req.body.password
   const found = false
+  console.log(userList)
   for (var i = 0; i < userList.length; i++) {
+  	/*console.log('userList : ' + userList[i].username + '  : ' + userList[i].password)*/
   	if (userList[i].username === username && password === userList[i].password){
   		res.status(200).send(userList[i].cart)
   		found = true
   	}
   }
   	if (found === false) {
-  		console.log('not connect')
   		res.status(400).send('Bouuuh mauvais mdp')
   	}
 })
@@ -94,6 +109,14 @@ router.post('/subscribe', (req, res) => {
   const password = req.body.password
   const passwordConfirm = req.body.passwordConfirm
   if (passwordConfirm === password) {
+  	console.log('username :' + username)
+  	console.log('password :' + password)
+  	userList.push({
+  		  'id': getId(userList, 'id'),
+          'username': username,
+          'password': password,
+          'cart': []
+        })
     res.status(200).send ('send pour voir ')
   } else {
     res.status(400).send('Bouuuh mauvais mdp')

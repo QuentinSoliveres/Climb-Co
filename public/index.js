@@ -7,7 +7,9 @@ var app = new Vue({
   data: {
     currentPage: 'home',
     password: '',
+    passwordConfirm: '',
     username: '',
+    newUser: false,
     logged:false,
     message:'Log in',
     shopList:[],
@@ -100,12 +102,24 @@ var app = new Vue({
         console.log('on passe')
       }   
     },
-    test: function(){
-      this.myList.push({
-          name: "test"
-
+    sign_in: function(){
+      if(this.password === this.passwordConfirm){
+        this.$http.post('/subscribe', {
+            password: this.password,
+            passwordConfirm: this.passwordConfirm,
+            username: this.username
+      }).then(response =>{
+          if (response.status === 200){
+          this.logged=true,
+          this.message=this.username,
+          this.currentPage= 'home'
+        }
+      }) 
+        .catch(error => {
+          console.log(error.response)
         })
-    },
+      }
+    }
   }
 })
 

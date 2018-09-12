@@ -72,13 +72,25 @@
 				</section>
 
 				<section v-if="currentPage === 'sign_in'" id="sign_in">
-					<div v-if="logged === false">
+					<div v-if="logged === false && newUser === false">
 					<h1>Sign in</h1>
 						<p>Username:</p>
 					 	<input v-model="username" placeholder="test1">
-						<p>Password</p>
+						<p>Password:</p>
 						<input v-model="password" placeholder="test2">
 						<button  v-on:click="loggin()" class="logging" type="button">Submit</button>
+						<a v-on:click="newUser = true">Sign up</a>
+					</div>
+					<div v-if="logged === false && newUser === true">
+						<p>Username:</p>
+					 	<input v-model="username" placeholder="test1">
+						<p>Password:</p>
+						<input v-model="password" placeholder="test2">
+						<p>Comfirm your password:</p>
+						<input v-model="passwordConfirm" placeholder="test2">
+						<button  v-on:click="sign_in()" class="logging" type="button">Submit</button>
+						<a v-on:click="newUser = false">Log in</a>
+
 					</div>
 					<div v-else>
 					</div>
