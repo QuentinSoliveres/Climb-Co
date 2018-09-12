@@ -27,7 +27,7 @@
 						    </div>
 						</li>
 						<li class="float_right"><a v-on:click="currentPage = 'cart'"> Cart </a></li>
-						<li class="float_right"	><a v-on:click="currentPage = 'sign_in'">Sign in</a></li>
+						<li class="float_right"	><a v-on:click="currentPage = 'sign_in'">{{ message }}</a></li>
 					</ul>
 				</nav>
 			</header>
@@ -60,8 +60,16 @@
 				</section>
 
 				<section v-if="currentPage === 'sign_in'" id="sign_in">
-					<h1>this is the sign in page</h1>
-					<p>description of or page</p> 
+					<div v-if="logged === false">
+					<h1>Sign in</h1>
+						<p>Username:</p>
+					 	<input v-model="username" placeholder="test1">
+						<p>Password</p>
+						<input v-model="password" placeholder="test2">
+						<button  v-on:click="loggin()" class="logging" type="button">Submit</button>
+					</div>
+					<div v-else>
+					</div>
 				</section>
 
 			</div>
@@ -75,6 +83,8 @@
 
 		</main>
 		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-		<script src="index.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.15.2/axios.js"></script>
+
+		<script src="index.js" type="module"></script>
 	</body>
 </html>
