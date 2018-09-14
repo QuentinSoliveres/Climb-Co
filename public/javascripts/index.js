@@ -93,6 +93,21 @@ var app = new Vue({
         console.log(error.response)
       })
     },
+    setListString: function(value){
+      if(value === 'shoesList'){
+          this.shopList=this.shoesList
+      }else if(value === 'ropeList'){
+        this.shopList=this.ropeList
+      }else if(value === 'harnessesList'){
+        this.shopList=this.harnessesList
+      }else if(value === 'helmetsList'){
+        this.shopList=this.helmetsList
+      }else if(value === 'carabinersList'){
+        this.shopList=this.carabinersList
+      }else if(value === 'descendersList'){
+        this.shopList=this.descendersList
+      }
+    },
     addToCart: function(item){
       var itemExist=false
       if(this.logged === true){
@@ -190,12 +205,12 @@ var app = new Vue({
     template: ` <div class="storeContainer">
     			<nav>
     				<ul>
-    					<li><a v-on:click.native="setList(shoesList)" >Chaussures</a> </li>
-	    				<li><a v-on:click.native="setList(helmetsList)">Casques</a></li>
-	    				<li><a v-on:click="setList(harnessesList)">Harnais</a></li>
-	    				<li><a v-on:click="setList(descendersList)">Descendeurs</a></li>
-	    				<li><a v-on:click="setList(ropeList)">Cordes</a></li>
-	    				<li><a v-on:click="setList(carabinersList)">Mousqueton</a></li>
+    					<li><a v-on:click="setList('shoesList')" >Chaussures</a> </li>
+	    				<li><a v-on:click="setList('helmetsList')">Casques</a></li>
+	    				<li><a v-on:click="setList('harnessesList')">Harnais</a></li>
+	    				<li><a v-on:click="setList('descendersList')">Descendeurs</a></li>
+	    				<li><a v-on:click="setList('ropeList')">Cordes</a></li>
+	    				<li><a v-on:click="setList('carabinersList')">Mousqueton</a></li>
     				</ul>
     			</nav>
 
@@ -220,6 +235,10 @@ var app = new Vue({
     methods: {
       addToCart: function(value){
         this.$parent.addToCart(value);
+      },
+      setList: function(value){
+        console.log(value)
+        this.$parent.setListString(value)
       }
     }
   })
