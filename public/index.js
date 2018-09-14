@@ -8,6 +8,8 @@ var app = new Vue({
     currentPage: 'home',
     password: '',
     passwordConfirm: '',
+    passwordDelete: '',
+    passwordDeleteConfirm: '',
     username: '',
     newUser: false,
     logged:false,
@@ -84,8 +86,7 @@ var app = new Vue({
           this.logged=true,
           this.message=this.username,
           this.currentPage= 'home',
-          this.cart.push(response.data)
-          console.log(this.cart)
+          this.cart=response.data
         }
       }) 
       .catch(error => {
@@ -93,14 +94,70 @@ var app = new Vue({
       })
     },
     addToCart: function(item){
+      var itemExist=false
       if(this.logged === true){
-       this.cart.push(item)
-       console.log(this.cart)
+        this.$http.put('/addItem', {
+              password: this.password,
+              username: this.username,
+              item: item
+            }).then(response =>{
+              if (response.status === 200){
+                 for (var i = 0; i < this.cart.length; i++) {
+                  if(this.cart[i].id === item.id){
+                    itemExist=true
+                    this.cart[i].quantity ++
+                  }
+                }
+                if(itemExist === false){
+                  item.quantity=1
+                  this.cart.push(item)
+               }
+               console.log(response)
+              }
+            }).catch(error => {
+               console.log(error.response)
+            })
+       
       }
       else {
         alert('Please loggin to use this function')
-        console.log('on passe')
+       
       }   
+       console.log(this.cart)
+    },
+    remove: function(item){
+      if(this.logged === true){
+        this.$http.put('/removeItem', {
+              password: this.password,
+              username: this.username,
+              item: item
+            }).then(response =>{
+              for (var i = 0; i < this.cart.length; i++) {
+                if(this.cart[i].id === item.id){
+                  this.cart.splice(i, 1)
+                }    
+              }
+            })
+      }
+    },
+    deleteAccount:function(){
+      console.log(this.passwordDeleteConfirm)
+      console.log(this.passwordDelete)
+        this.$http.delete('/deleteAccount', {
+              passwordDelete: this.passwordDelete,
+              passwordDeleteConfirm: this.passwordDeleteConfirm,
+              username: this.username
+      }).then(response =>{
+          if (response.status === 200){
+          this.logged=false,
+          this.message='Log in',
+          this.currentPage= 'home',
+          this.cart=[]
+        }
+      }) 
+      .catch(error => {
+        console.log(error.response)
+      })
     },
     sign_in: function(){
       if(this.password === this.passwordConfirm){
@@ -163,7 +220,6 @@ var app = new Vue({
     methods: {
       addToCart: function(value){
         this.$parent.addToCart(value);
-         
       }
     }
   })

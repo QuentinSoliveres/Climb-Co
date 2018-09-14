@@ -66,7 +66,7 @@
 				  	      <div class="itemInfoColumn2">
 				  	      	<p class="productDesc" > {{ value.description }} </p>
 				  	      	<p class="quantity"> quantity: {{ value.quantity }} </p>
-						  	<button v-on:click="" class="addTocartBtn" type="button">remove</button>
+						  	<button v-on:click="remove(value)" class="addTocartBtn" type="button">remove</button>
 						  </div>
 		  	     </div> 
 				</section>
@@ -90,6 +90,18 @@
 						<input v-model="passwordConfirm" placeholder="test2">
 						<button  v-on:click="sign_in()" class="logging" type="button">Submit</button>
 						<a v-on:click="newUser = false">Log in</a>
+
+					</div>
+					<div v-if="logged === true">
+						<p>Username:</p>
+					 	{{ username }}
+					 	<br>
+					 	<h2> delete account </h2>
+						<p>Password:</p>
+						<input v-model="passwordDelete" placeholder="test2">
+						<p>Comfirm your password:</p>
+						<input v-model="passwordDeleteConfirm" placeholder="test2">
+						<button  v-on:click="deleteAccount" class="logging" type="button">Submit</button>
 
 					</div>
 					<div v-else>

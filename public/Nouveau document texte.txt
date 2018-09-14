@@ -1,0 +1,10 @@
+this.$http.post('/connect', {
+              password: this.password,
+              username: this.username,
+              item: this.item
+            }).then(response =>{
+              if (response.status === 200){
+               
+               console.log(this.cart[i].quantity)
+              }
+            })
