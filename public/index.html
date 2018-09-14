@@ -12,21 +12,21 @@
 					<ul>
 						<li class="float_left_dropdown"><a  v-on:click="currentPage = 'home'" class = "dropbtn" >Home</a>
 							<div class="dropdown-content">					      
-								<a v-on:click="currentPage = 'history'">Our history</a>
-								<a v-on:click="currentPage = 'mission'">Our mission</a>
+								<a v-on:click="currentPage = 'history'">Notre histoire</a>
+								<a v-on:click="currentPage = 'mission'">Nos missions</a>
 						    </div>
 						</li>
 						<li v-on:click="currentPage = 'shop'" class="float_left_dropdown"><a class = "dropbtn">Article</a>
 							<div class="dropdown-content">	
-								<a v-on:click="setList(shoesList)" >Shoes</a>      
-								<a v-on:click="setList(helmetsList)">Helmets</a>
-								<a v-on:click="setList(harnessesList)">Harnesses</a>
-								<a v-on:click="setList(descendersList)">Descenders</a>
-								<a v-on:click="setList(ropeList)">Ropes</a>
-								<a v-on:click="setList(carabinersList)">Carabiners</a>
+								<a v-on:click="setList(shoesList)" >Chaussures</a>      
+								<a v-on:click="setList(helmetsList)">Casques</a>
+								<a v-on:click="setList(harnessesList)">Harnais</a>
+								<a v-on:click="setList(descendersList)">Descendeurs</a>
+								<a v-on:click="setList(ropeList)">Cordes</a>
+								<a v-on:click="setList(carabinersList)">Mousquetons</a>
 						    </div>
 						</li>
-						<li class="float_right"><a v-on:click="currentPage = 'cart'"> Cart </a></li>
+						<li class="float_right"><a v-on:click="currentPage = 'cart'"> Panier </a></li>
 						<li class="float_right"	><a v-on:click="currentPage = 'sign_in'">{{ message }}</a></li>
 					</ul>
 				</nav>
@@ -34,8 +34,7 @@
 			<div id=holder>
 
 				<section v-if="currentPage === 'home'" id="home">
-					<h1>this is the home page</h1>
-					<p>description of or page</p> 
+					<h1>Bienvenue dans l'univers Climb&Co</h1>
 				</section>
 
 				<section v-if="currentPage === 'history'" id="history">
@@ -82,7 +81,7 @@
 						<p>Password:</p>
 						<input v-model="password" placeholder="test2">
 						<button  v-on:click="loggin()" class="logging" type="button">Submit</button>
-						<a v-on:click="newUser = true">Sign up</a>
+						<a v-on:click="newUser = true">S'authentifier</a>
 					</div>
 					<div v-if="logged === false && newUser === true">
 						<p>Username:</p>
@@ -92,7 +91,7 @@
 						<p>Comfirm your password:</p>
 						<input v-model="passwordConfirm" placeholder="test2">
 						<button  v-on:click="sign_in()" class="logging" type="button">Submit</button>
-						<a v-on:click="newUser = false">Log in</a>
+						<a v-on:click="newUser = false">S'authentifier</a>
 
 					</div>
 					<div v-if="logged === true">

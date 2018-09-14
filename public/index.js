@@ -13,7 +13,7 @@ var app = new Vue({
     username: '',
     newUser: false,
     logged:false,
-    message:'Log in',
+    message:'S\'authentifier',
     shopList:[],
     shoesList: [],
     ropeList: [],
@@ -190,24 +190,24 @@ var app = new Vue({
     template: ` <div class="storeContainer">
     			<nav>
     				<ul>
-    					<li><a v-on:click.native="setList(shoesList)" >Shoes</a> </li>
-	    				<li><a v-on:click.native="setList(helmetsList)">Helmets</a></li>
-	    				<li><a v-on:click="setList(harnessesList)">Harnesses</a></li>
-	    				<li><a v-on:click="setList(descendersList)">Descenders</a></li>
-	    				<li><a v-on:click="setList(ropeList)">Ropes</a></li>
-	    				<li><a v-on:click="setList(carabinersList)">Carabiners</a></li>
+    					<li><a v-on:click.native="setList(shoesList)" >Chaussures</a> </li>
+	    				<li><a v-on:click.native="setList(helmetsList)">Casques</a></li>
+	    				<li><a v-on:click="setList(harnessesList)">Harnais</a></li>
+	    				<li><a v-on:click="setList(descendersList)">Descendeurs</a></li>
+	    				<li><a v-on:click="setList(ropeList)">Cordes</a></li>
+	    				<li><a v-on:click="setList(carabinersList)">Mousqueton</a></li>
     				</ul>
     			</nav>
 
     			<section id="shop"> 
-				  <h1>Titre de ma page shop</h1>   
-				  	    <h2>magasin:</h2>
+				  <h1>Articles</h1>   
+				  	    <h2>Magasin:</h2>
 				  	     <div class="itemContainer" v-for="value in store">
 				  	      <img v-bind:src="value.image" width="300" height="300" >
 				  	      <div class="itemInfoColumn1">
 					  	      <h3> {{ value.title }} </h3> 
 					  	      <h4> {{ value.brand }} </h4> 
-					  	      <p class="price"> price: {{ value.price }} </p>
+					  	      <p class="price"> prix: {{ value.price }} </p>
 				  	      </div> 
 				  	      <div class="itemInfoColumn2">
 				  	      	<p class="productDesc" > {{ value.description }} </p>
