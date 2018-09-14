@@ -7,7 +7,11 @@ var app = new Vue({
   data: {
     currentPage: 'home',
     password: '',
+    passwordConfirm: '',
+    passwordDelete: '',
+    passwordDeleteConfirm: '',
     username: '',
+    newUser: false,
     logged:false,
     message:'Log in',
     shopList:[],
@@ -16,7 +20,8 @@ var app = new Vue({
     harnessesList: [],
     descendersList: [],
     carabinersList: [],
-    helmetsList: []
+    helmetsList: [],
+    cart: []
   },
   created () {
    
@@ -76,16 +81,101 @@ var app = new Vue({
         password: this.password,
         username: this.username
       })
-      .then(function (response){
+      .then(response =>{
           if (response.status === 200){
           this.logged=true,
-          this.message=this.password,
-          this.currentPage= 'home'
+          this.message=this.username,
+          this.currentPage= 'home',
+          this.cart=response.data
         }
       }) 
       .catch(error => {
         console.log(error.response)
       })
+    },
+    addToCart: function(item){
+      var itemExist=false
+      if(this.logged === true){
+        this.$http.put('/addItem', {
+              password: this.password,
+              username: this.username,
+              item: item
+            }).then(response =>{
+              if (response.status === 200){
+                 for (var i = 0; i < this.cart.length; i++) {
+                  if(this.cart[i].id === item.id){
+                    itemExist=true
+                    this.cart[i].quantity ++
+                  }
+                }
+                if(itemExist === false){
+                  item.quantity=1
+                  this.cart.push(item)
+               }
+               console.log(response)
+              }
+            }).catch(error => {
+               console.log(error.response)
+            })
+       
+      }
+      else {
+        alert('Please loggin to use this function')
+       
+      }   
+       console.log(this.cart)
+    },
+    remove: function(item){
+      if(this.logged === true){
+        this.$http.put('/removeItem', {
+              password: this.password,
+              username: this.username,
+              item: item
+            }).then(response =>{
+              for (var i = 0; i < this.cart.length; i++) {
+                if(this.cart[i].id === item.id){
+                  this.cart.splice(i, 1)
+                }    
+              }
+            })
+      }
+    },
+    deleteAccount:function(){
+      console.log(this.passwordDeleteConfirm)
+      console.log(this.passwordDelete)
+        this.$http.delete('/deleteAccount', {
+              passwordDelete: this.passwordDelete,
+              passwordDeleteConfirm: this.passwordDeleteConfirm,
+              username: this.username
+      }).then(response =>{
+          if (response.status === 200){
+          this.logged=false,
+          this.message='Log in',
+          this.currentPage= 'home',
+          this.cart=[]
+        }
+      }) 
+      .catch(error => {
+        console.log(error.response)
+      })
+    },
+    sign_in: function(){
+      if(this.password === this.passwordConfirm){
+        this.$http.post('/subscribe', {
+            password: this.password,
+            passwordConfirm: this.passwordConfirm,
+            username: this.username
+      }).then(response =>{
+          if (response.status === 200){
+          this.logged=true,
+          this.message=this.username,
+          this.currentPage= 'home'
+        }
+      }) 
+        .catch(error => {
+          console.log(error.response)
+        })
+      }
     }
   }
 })
@@ -121,11 +211,16 @@ var app = new Vue({
 				  	      </div> 
 				  	      <div class="itemInfoColumn2">
 				  	      	<p class="productDesc" > {{ value.description }} </p>
-						  	<button class="addTocartBtn" type="button">Add To Cart</button>
+						  	<button v-on:click="addToCart(value)" class="addTocartBtn" type="button">Add To Cart</button>
 						  </div>
 		  	     </div> 
 		  	    </section>
 		  	    </div>
-		`
+		`,
+    methods: {
+      addToCart: function(value){
+        this.$parent.addToCart(value);
+      }
+    }
   })
 

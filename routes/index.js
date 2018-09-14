@@ -42,12 +42,24 @@ const helmetsList = [
       { id: 2, title: 'Climb&Co Helmet Red', brand: 'Climb&Co', price: 29, image: 'images/helmet2.jpg', description: "Notre casque d'escalade modèle adulte a été conçu spécialement pour vous permettre de grimper en toute sérénité et sécurité. Le casque respecte toutes les normes lié à la bonne pratique du sport."},
       { id: 3, title: 'Climb&Co Helmet Blue', brand: 'Climb&Co', price: 19, image: 'images/helmet3.jpg', description: "Notre casque d'escalade modèle enfant a été conçu spécialement pour vous permettre de grimper en toute sérénité et sécurité. Le casque respecte toutes les normes lié à la bonne pratique du sport."}
     ]
-const userList = [
-	  { id: 0, username: 'admin', password: 'admin', cart: { id: 1, title: 'Boostic', brand: 'Scarpa',  price: 115}},
-      { id: 1, username: 'user', password: 'user' , cart: { id: 1, title: 'Boostic', brand: 'Scarpa',  price: 115}},
-      { id: 2, username: 'random', password: '123',  cart: { id: 1, title: 'Boostic', brand: 'Scarpa',  price: 115}},
-      { id: 3, username: 'test', password: 'rate',  cart: { id: 1, title: 'Boostic', brand: 'Scarpa',  price: 115}}
+
+var userList = [
+	  { id: 0, username: 'admin', password: 'admin', cart: []},
+      { id: 1, username: 'user', password: 'user' , cart: []},
+      { id: 2, username: 'random', password: '123',  cart: []} ,
+      { id: 3, username: 'test', password: 'rate',  cart: []}
 ]
+
+function getId(arr, prop) {
+    var max = 0;
+    for (var i=0 ; i<arr.length ; i++) {
+        if (parseInt(arr[i][prop]) > parseInt(max)){
+            max = arr[i][prop];
+        }
+    }
+    return max+1;
+}
+
 
 router.get('/shoesList', (req, res) => {
   res.json(shoesList)
@@ -76,16 +88,22 @@ router.get('/helmetsList', (req, res) => {
 router.post('/connect', (req, res) => {
   const username = req.body.username
   const password = req.body.password
-  const found = false
+  var found = false
   for (var i = 0; i < userList.length; i++) {
+  	/*console.log('userList : ' + userList[i].username + '  : ' + userList[i].password)*/
   	if (userList[i].username === username && password === userList[i].password){
-  		res.status(200).send(userList[i].cart)
+  		console.log(userList[i].cart.title)
+  		var cart = []
+  		for (var j = 0; j < userList[i].cart.length; j++) {
+  			cart.push(userList[i].cart[j])
+  			console.log(userList[i].cart[j])
+  		}
+  		res.status(200).json(cart)
   		found = true
   	}
   }
   	if (found === false) {
-  		console.log('not connect')
-  		res.status(400).send('Bouuuh mauvais mdp')
+  		res.status(400).send('mauvais mdp')
   	}
 })
 
@@ -94,10 +112,82 @@ router.post('/subscribe', (req, res) => {
   const password = req.body.password
   const passwordConfirm = req.body.passwordConfirm
   if (passwordConfirm === password) {
-    res.status(200).send ('send pour voir ')
+ 	console.log('username :' + username)
+  	console.log('password :' + password)
+  	userList.push({
+  		  'id': getId(userList, 'id'),
+          'username': username,
+          'password': password,
+          'cart': []
+        })
+    res.status(200).send("ok")
   } else {
-    res.status(400).send('Bouuuh mauvais mdp')
+    res.status(400).send('mauvais mdp')
   }
 })
 
-  module.exports = router;
+
+router.put('/addItem', (req, res) => {
+  const username = req.body.username
+  const password = req.body.password
+  const item = req.body.item
+  var found = false
+  var itemExist = false
+  for (var i = 0; i < userList.length; i++) {
+  	if (userList[i].username === username && password === userList[i].password){
+  		for (var j = 0; j < userList[i].cart.length; j++) {
+                  if(userList[i].cart[j].id === item.id){
+                    itemExist=true
+                    userList[i].cart[j].quantity ++
+                  }
+                }
+                if(itemExist === false){
+                  item.quantity=1
+                  userList[i].cart.push(item)
+               }
+  		found = true
+  		res.status(200).send('added')
+  	}
+  }
+  	if (found === false) {
+  		res.status(400).send('mauvais mdp')
+  	}
+})
+
+router.put('/removeItem', (req, res) => {
+  const username = req.body.username
+  const password = req.body.password
+  const item = req.body.item
+  var found = false
+  for (var i = 0; i < userList.length; i++) {
+  	if (userList[i].username === username && password === userList[i].password){
+  		for (var j = 0; j < userList[i].cart.length; j++) {
+                  if(userList[i].cart[j].id === item.id){
+                   userList[i].cart.splice(j, 1)
+                  }
+                }
+  		found = true
+  		res.status(200).send('added')
+  	}
+  }
+  	if (found === false) {
+  		res.status(400).send('mauvais mdp')
+  	}
+})
+
+router.delete('/deleteAccount', (req, res) => {
+  const username = req.body.username
+  const password = req.body.passwordDelete
+  const passwordConfirm = req.body.passwordDeleteConfirm
+  console.log(req.body)
+  if (passwordConfirm === password) {
+	for (var i = 0; i < userList.length; i++) {
+  	if (userList[i].username === username && password === userList[i].password){
+  		userList.splice(i, 1)
+    res.status(200).send("ok")
+  } else {
+    res.status(400).send('mauvais mdp')
+  }
+}}})
+
+ module.exports = router;

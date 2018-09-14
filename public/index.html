@@ -58,18 +58,54 @@
 				</shop>
 
 				<section v-if="currentPage === 'cart'" id="cart">
-					<h1>this is the cart page</h1>
-					<p>description of or page</p> 
+					 <h1>Cart</h1>  
+				  	     <div class="itemContainer" v-for="value in cart">
+				  	      <img v-bind:src="value.image" width="300" height="300" >
+				  	      <div class="itemInfoColumn1">
+					  	      <h3> {{ value.title }} </h3> 
+					  	      <h4> {{ value.brand }} </h4> 
+					  	      <p class="price"> price: {{ value.price }} </p>
+				  	      </div> 
+				  	      <div class="itemInfoColumn2">
+				  	      	<p class="productDesc" > {{ value.description }} </p>
+				  	      	<p class="quantity"> quantity: {{ value.quantity }} </p>
+						  	<button v-on:click="remove(value)" class="addTocartBtn" type="button">remove</button>
+						  </div>
+		  	     </div> 
 				</section>
 
 				<section v-if="currentPage === 'sign_in'" id="sign_in">
-					<div v-if="logged === false">
+					<div v-if="logged === false && newUser === false">
 					<h1>Sign in</h1>
 						<p>Username:</p>
 					 	<input v-model="username" placeholder="test1">
-						<p>Password</p>
+						<p>Password:</p>
 						<input v-model="password" placeholder="test2">
 						<button  v-on:click="loggin()" class="logging" type="button">Submit</button>
+						<a v-on:click="newUser = true">Sign up</a>
+					</div>
+					<div v-if="logged === false && newUser === true">
+						<p>Username:</p>
+					 	<input v-model="username" placeholder="test1">
+						<p>Password:</p>
+						<input v-model="password" placeholder="test2">
+						<p>Comfirm your password:</p>
+						<input v-model="passwordConfirm" placeholder="test2">
+						<button  v-on:click="sign_in()" class="logging" type="button">Submit</button>
+						<a v-on:click="newUser = false">Log in</a>
+
+					</div>
+					<div v-if="logged === true">
+						<p>Username:</p>
+					 	{{ username }}
+					 	<br>
+					 	<h2> delete account </h2>
+						<p>Password:</p>
+						<input v-model="passwordDelete" placeholder="test2">
+						<p>Comfirm your password:</p>
+						<input v-model="passwordDeleteConfirm" placeholder="test2">
+						<button  v-on:click="deleteAccount" class="logging" type="button">Submit</button>
+
 					</div>
 					<div v-else>
 					</div>
