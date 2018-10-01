@@ -166,7 +166,7 @@ router.put('/removeItem', (req, res) => {
                   }
                 }
   		found = true
-  		res.status(200).send('added')
+  		res.status(200).send('removed')
   	}
   }
   	if (found === false) {

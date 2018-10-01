@@ -79,7 +79,8 @@
 						<p>Username:</p>
 					 	<input v-model="username" placeholder="test1">
 						<p>Password:</p>
-						<input v-model="password" placeholder="test2">
+						<input type="password" v-model="password" placeholder="test2">						
+						<div v-if="mdpWrong"> Mauvais mot de passe. Veuillez réesayer</div> 
 						<button  v-on:click="loggin()" class="logging" type="button">Submit</button>
 						<a v-on:click="newUser = true">S'authentifier</a>
 					</div>
@@ -87,9 +88,9 @@
 						<p>Username:</p>
 					 	<input v-model="username" placeholder="test1">
 						<p>Password:</p>
-						<input v-model="password" placeholder="test2">
+						<input type="password" v-model="password" placeholder="test2">
 						<p>Comfirm your password:</p>
-						<input v-model="passwordConfirm" placeholder="test2">
+						<input type="password" v-model="passwordConfirm" placeholder="test2">
 						<button  v-on:click="sign_in()" class="logging" type="button">Submit</button>
 						<a v-on:click="newUser = false">S'authentifier</a>
 
@@ -100,9 +101,9 @@
 					 	<br>
 					 	<h2> delete account </h2>
 						<p>Password:</p>
-						<input v-model="passwordDelete" placeholder="test2">
+						<inputtype="password"  v-model="passwordDelete" placeholder="test2">
 						<p>Comfirm your password:</p>
-						<input v-model="passwordDeleteConfirm" placeholder="test2">
+						<input type="password" v-model="passwordDeleteConfirm" placeholder="test2">
 						<button  v-on:click="deleteAccount" class="logging" type="button">Submit</button>
 
 					</div>

@@ -5,6 +5,7 @@ Vue.prototype.$http = axios
 var app = new Vue({
   el: '#app',
   data: {
+    mdpWrong: false,
     currentPage: 'home',
     password: '',
     passwordConfirm: '',
@@ -185,10 +186,12 @@ var app = new Vue({
           this.logged=true,
           this.message=this.username,
           this.currentPage= 'home'
+        }else{
+          this.mdpWrong=true
         }
       }) 
         .catch(error => {
-          console.log(error.response)
+            console.log(error)
         })
       }
     }
